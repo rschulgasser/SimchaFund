@@ -38,6 +38,7 @@ namespace SimchaContributions.data
                     Name = (string)reader["SimchaName"],
                     Date = (DateTime)reader["Date"],
                     NumberOfContributers = $"{GetNumberOfContributersPerSimcha((int)reader["Id"])}/{totalNumberofContributers}",
+                    Total=GetTotalForSimcha((int)reader["Id"]),
                     Amount = GetAmountPerSimcha((int)reader["Id"])
 
                 }) ;
@@ -119,7 +120,7 @@ namespace SimchaContributions.data
                     Balance= GetPersonsBalance((int)reader["Id"])
                     
                 });
-
+             
 
             }
             Contributers = contributers;
@@ -368,6 +369,10 @@ namespace SimchaContributions.data
                     contributersContributating.Add(c);
                 }
             }
+            if (contributersContributating.Count() == 0)
+            {
+                return;
+            }
             //cmd.CommandText = @" update [Simchos-Contributer] set amount=10
             //            where SimchaId = 1 and ContributerId = 1";
             DeleteContributions(simchaId);
@@ -405,7 +410,21 @@ namespace SimchaContributions.data
             connection.Open();
             cmd.ExecuteNonQuery();
         }
+        public decimal GetTotalForSimcha(int id)
+        {
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = @"
+                             select ISNUll (SUM(Amount),0) from [Simchos-Contributer]
+                             where SimchaId=@id";
+            cmd.Parameters.AddWithValue("@id", id);
 
+            connection.Open();
+
+            return (decimal)cmd.ExecuteScalar();
+
+
+        }
 
     }
 }

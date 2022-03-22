@@ -19,7 +19,7 @@ namespace SimchaCont.Controllers
         {
             HomeModel homeModel = new();
             homeModel.Simchos = dB.GetSimchas();
-
+            //homeModel.Total=dB.GetTotalForSimcha()
             return View(homeModel); ;
         }
         [HttpPost]

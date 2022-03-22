@@ -6,8 +6,7 @@
 
         <div class="header">
             <h1>
-                Contributors for the
-                Gorelik Twins simcha
+              @Model.Simcha.Name
             </h1>
         </div>
         <div class="table-responsive">
@@ -21,51 +20,58 @@
                         <th>Always Include</th>
                         <th>Amount</th>
                     </tr>
-                    @for(int counter =0; counter< Model.Contributers.Count(); counter++){
+                    @for (int counter = 0; counter < Model.Contributers.Count(); counter++)
+                    {
 
-                    <input type="hidden" name="contributors[@counter].Id" value="@Model.Contributers[counter].Id" />
-                    <tr>
-                        @if (Model.Contributers[counter].Included)
-                        {
-                            <td>
-                                <input class="contribute" type="checkbox" name="contributors[@counter].Included" checked="checked" value="true" />
-                            </td>
-                        }
-                        else
-                        { 
-                        
-
-
-
-                    <td>
-                        @if (Model.Contributers[@counter].AlwaysInclude)
-                        {
-                            <input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude" checked value="true" />
-                        }
-                        else
-                        {
-                            <input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude"  value="false" />
-                        }
-                    </td>
-                        }
-                        <td>@Model.Contributers[counter].FirstName @Model.Contributers[counter].LastName</td>
-                        <td>@Model.Contributers[counter].Balance.ToString("c")</td>
-                        <td style="text-align: center;">
-                        </td>
-                        @if (Model.Contributers[counter].AmountPerSimcha != 0)
-                        {
-                            <td>
-                                <input type="text" name="contributors[@counter].AmountPerSimcha" class="form-control" value="@Model.Contributers[counter].AmountPerSimcha" />
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                            <input type="text" name="contributors[@counter].AmountPerSimcha" class="form-control" value="5.00" />
+                        <input type="hidden" name="contributors[@counter].Id" value="@Model.Contributers[counter].Id" />
+                        <tr>
+                            @if (Model.Contributers[counter].AmountPerSimcha != 0)
+                            {
+                                <td>
+                                    <input class="contribute" type="checkbox" name="contributors[@counter].Included" checked="checked" value="true" />
                                 </td>
-                        }
-                    </tr>
-                        
+                            }
+                            else
+                            {
+                                <td>
+                                    <input class="contribute" type="checkbox" name="contributors[@counter].Included" value="false" />
+                                </td>
+                            }
+
+
+
+
+
+
+                            <td>@Model.Contributers[counter].FirstName @Model.Contributers[counter].LastName</td>
+                            <td>@Model.Contributers[counter].Balance.ToString("c")</td>
+
+
+                            <td>
+                                @if (Model.Contributers[@counter].AlwaysInclude)
+                                {
+                                    <input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude" checked value="true" />
+                                }
+                                else
+                                {
+                                    <input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude" value="false" />
+                                }
+                            </td>
+
+                            @if (Model.Contributers[counter].AmountPerSimcha != 0)
+                            {
+                                <td>
+                                    <input type="text" name="contributors[@counter].AmountPerSimcha" class="form-control" value="@Model.Contributers[counter].AmountPerSimcha" />
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <input type="text" name="contributors[@counter].AmountPerSimcha" class="form-control" value="0" />
+                                </td>
+                            }
+                        </tr>
+
                     }
 
                 </table>
