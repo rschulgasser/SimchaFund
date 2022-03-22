@@ -10,5 +10,6 @@ namespace SimchaCont.web.Models
     {
         public List<Contributer> Contributers { get; set; }
         public Decimal Total { get; set; }
+        public string Message { get; set; }
     }
 }

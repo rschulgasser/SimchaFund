@@ -19,7 +19,12 @@ namespace SimchaCont.Controllers
         {
             HomeModel homeModel = new();
             homeModel.Simchos = dB.GetSimchas();
-            //homeModel.Total=dB.GetTotalForSimcha()
+           
+            string message = (string)TempData["Message"];
+            if (!String.IsNullOrEmpty(message))
+            {
+                homeModel.Message = message;
+            }
             return View(homeModel); ;
         }
         [HttpPost]
@@ -42,7 +47,7 @@ namespace SimchaCont.Controllers
             [HttpPost]
         public IActionResult UpdateContributions(List<Contributer> contributors,int SimchaId)
         {
-
+            TempData["Message"] = $"Contributions updated successfully!";
             dB.UpdateContributions(contributors, SimchaId);
             return Redirect("/");
         }

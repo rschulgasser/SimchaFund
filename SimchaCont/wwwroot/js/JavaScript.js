@@ -10,6 +10,8 @@
         const tr = $(this).parent().parent();
         const name = tr.find('td:eq(1)').text();
         $("#deposit-name").text(name);
+      
+       
 
         $(".deposit").modal();
     });
@@ -23,7 +25,7 @@
         const alwaysInclude = $(this).data('alwaysInclude');
         const date = $(this).data('date');
        
-        const form = $(".edit-contrib form");
+        const form = $(".form-group");
         form.find("#edit-id").remove();
         const hidden = $(`<input type='hidden' id='edit-id' name='id' value='${id}' />`);
         form.append(hidden);
@@ -35,7 +37,7 @@
         $("#contributor_created_at").val(date);
 
         $(".edit-modal").modal();
-      //  ("#initialDepositDiv").hide();
+      
        
 
    

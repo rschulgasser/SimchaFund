@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using SimchaContributions.data;
 using SimchaCont.web.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace SimchaCont.web.Controllers
 {
@@ -14,9 +16,15 @@ namespace SimchaCont.web.Controllers
         public IActionResult IndexContributers()
         {
             ContributerModel c = new();
+
+            string ContributionMessage = (string)TempData["CMessage"];
+            if (!String.IsNullOrEmpty(ContributionMessage))
+            {
+                c.Message = ContributionMessage;
+            }
             c.Contributers = dB.GetAllContributers();
             c.Total = dB.GetTotal();
-
+           
             return View(c);
         }
         public IActionResult History(int ContributerId)
@@ -32,16 +40,29 @@ namespace SimchaCont.web.Controllers
         {
            contributer.CreatedDate = DateTime.Now;
             //DateTime d=contributer.CreatedDate;
-            dB.AddContributer(contributer, initialDeposit);
+           int id= dB.AddContributer(contributer, initialDeposit);
+             TempData["CMessage"] = $"Contributer added successfully: id: {id}!";
 
             return Redirect("/ContController1/IndexContributers");
         }
+        [HttpPost]
         public IActionResult Deposit(int contributorId, DateTime date, int amount)
         {
             dB.AddDeposit(contributorId, amount, date);
+            TempData["CMessage"] = $"Deposit Added Successfully!";
+            return Redirect("/ContController1/IndexContributers");
+        }
+        [HttpPost]
+
+        public IActionResult Edit(Contributer contributer)    
+        {
+            contributer.CreatedDate = DateTime.Now;
+            dB.EditContributer(contributer);
+           TempData["CMessage"] = $"Contributibuter edit successfully!";
 
             return Redirect("/ContController1/IndexContributers");
         }
-
     }
+  
+    
 }

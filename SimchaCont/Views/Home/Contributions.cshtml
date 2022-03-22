@@ -34,7 +34,7 @@
                             else
                             {
                                 <td>
-                                    <input class="contribute" type="checkbox" name="contributors[@counter].Included" value="false" />
+                                    <input class="contribute" type="checkbox" name="contributors[@counter].Included" value="true" />
                                 </td>
                             }
 
@@ -48,13 +48,15 @@
 
 
                             <td>
+                               
                                 @if (Model.Contributers[@counter].AlwaysInclude)
                                 {
-                                    <input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude" checked value="true" />
+                                    <h1>✓</h1>
+                                    @*<input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude" checked value="true" />*@
                                 }
                                 else
                                 {
-                                    <input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude" value="false" />
+                                    @*<input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude" value="false" />*@
                                 }
                             </td>
 
