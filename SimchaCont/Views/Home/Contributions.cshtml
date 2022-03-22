@@ -1,0 +1,80 @@
+﻿@using SimchaCont.web.Models;
+@using SimchaContributions.data;
+@model ContributionsModel
+<div class="container">
+    <main role="main" class="pb-3" style="margin-top: 60px;">
+
+        <div class="header">
+            <h1>
+                Contributors for the
+                Gorelik Twins simcha
+            </h1>
+        </div>
+        <div class="table-responsive">
+            <form method="POST" action="/Home/updatecontributions">
+                <input type="hidden" name="simchaId" value="@Model.Simcha.Id" />
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Contribute</th>
+                        <th>Name</th>
+                        <th>Balance</th>
+                        <th>Always Include</th>
+                        <th>Amount</th>
+                    </tr>
+                    @for(int counter =0; counter< Model.Contributers.Count(); counter++){
+
+                    <input type="hidden" name="contributors[@counter].Id" value="@Model.Contributers[counter].Id" />
+                    <tr>
+                        @if (Model.Contributers[counter].Included)
+                        {
+                            <td>
+                                <input class="contribute" type="checkbox" name="contributors[@counter].Included" checked="checked" value="true" />
+                            </td>
+                        }
+                        else
+                        { 
+                        
+
+
+
+                    <td>
+                        @if (Model.Contributers[@counter].AlwaysInclude)
+                        {
+                            <input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude" checked value="true" />
+                        }
+                        else
+                        {
+                            <input class="contribute" type="checkbox" name="contributors[@counter].AlwaysInclude"  value="false" />
+                        }
+                    </td>
+                        }
+                        <td>@Model.Contributers[counter].FirstName @Model.Contributers[counter].LastName</td>
+                        <td>@Model.Contributers[counter].Balance.ToString("c")</td>
+                        <td style="text-align: center;">
+                        </td>
+                        @if (Model.Contributers[counter].AmountPerSimcha != 0)
+                        {
+                            <td>
+                                <input type="text" name="contributors[@counter].AmountPerSimcha" class="form-control" value="@Model.Contributers[counter].AmountPerSimcha" />
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                            <input type="text" name="contributors[@counter].AmountPerSimcha" class="form-control" value="5.00" />
+                                </td>
+                        }
+                    </tr>
+                        
+                    }
+
+                </table>
+                <div style="text-align:center;">
+                    <button class="btn-lg btn-danger">Update</button>
+                </div>
+            </form>
+        </div>
+
+
+    </main>
+</div>
